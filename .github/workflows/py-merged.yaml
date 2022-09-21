@@ -1,0 +1,24 @@
+name: Binary search - Merged (black and Mypy)
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  py-merged:
+    name: Binary search - Formatting (black)
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - run: pip install black
+    - run: pip install mypy
+
+    # --check fails if black would reformat, succeeds if no changes
+    - run: black --check binary-search-typed.py
+    - run: mypy binary-search-typed.py
+
